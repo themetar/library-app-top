@@ -41,6 +41,24 @@ function render() {
   }
 }
 
+/* Event listeners */
+
+function addBookHandler(e) {
+  e.preventDefault();
+
+  let inputs = document.querySelectorAll('input');
+  let values = {}
+  const prop = {text: "value", number: "value", checkbox: "checked"};
+  for(let input of inputs) {
+    values[input.name] = input[prop[input.type]];
+  }
+  
+  let new_book = new Book(values.title, values.author, values.pages, values.read)
+  console.log(new_book);
+}
+
+document.querySelector('form').addEventListener('submit', addBookHandler);
+
 // initialize
 addBookToLibrary(new Book("King Barleycorn", "Jack London", 203, true));
 addBookToLibrary(new Book("The Cosmic Puppets", "Philip K. Dick", 130, true));
