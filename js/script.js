@@ -34,8 +34,11 @@ function makeBookDiv(book) {
 function render() {
   let shelf = document.querySelector('#bookshelf');
 
-  for (book of library) {
-    let book_div = makeBookDiv(book);  
+  // remove all elements
+  for (let child = shelf.lastChild; child; child = shelf.lastChild) shelf.removeChild(child);
+
+  for (let i=0; i < library.length; i++) {
+    let book_div = makeBookDiv(library[i]);  
 
     shelf.appendChild(book_div);
   }
@@ -54,7 +57,9 @@ function addBookHandler(e) {
   }
   
   let new_book = new Book(values.title, values.author, values.pages, values.read)
-  console.log(new_book);
+  
+  library.push(new_book);
+  render();
 }
 
 document.querySelector('form').addEventListener('submit', addBookHandler);
