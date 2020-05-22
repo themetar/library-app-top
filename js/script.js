@@ -19,10 +19,10 @@ function makeBookDiv(book, i) {
   let book_div = document.createElement('div');
   let cover = book_div.appendChild(document.createElement('div'));
   
-  author = document.createElement('p');
+  let author = document.createElement('p');
   author.innerHTML = book.author;
 
-  title = document.createElement('p');
+  let title = document.createElement('p');
   title.innerHTML = book.title;
 
   cover.appendChild(author);
@@ -31,7 +31,7 @@ function makeBookDiv(book, i) {
   let read_box = document.createElement('input');
   read_box.type = "checkbox";
   read_box.checked = book.read;
-  read_box.id = "read" + i;
+  read_box.id = `read-${i}`;
   book_div.appendChild(read_box);
 
   let label = document.createElement('label');
@@ -45,6 +45,14 @@ function makeBookDiv(book, i) {
 
   remove_btn.addEventListener('click', removeBookHandler);
 
+  book_div.setAttribute('data-library-index', i.toString());
+
+  /* css classes */
+  book_div.classList.add('book');
+  cover.classList.add('cover');
+  title.classList.add('title');
+  author.classList.add('author');
+
   return book_div;
 }
 
@@ -55,8 +63,7 @@ function render() {
   for (let child = shelf.lastChild; child; child = shelf.lastChild) shelf.removeChild(child);
 
   for (let i=0; i < library.length; i++) {
-    let book_div = makeBookDiv(library[i], i);  
-    book_div.setAttribute('data-library-index', i.toString());
+    let book_div = makeBookDiv(library[i], i);
     shelf.appendChild(book_div);
   }
 }
