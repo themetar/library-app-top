@@ -28,6 +28,12 @@ function makeBookDiv(book) {
   cover.appendChild(author);
   cover.appendChild(title);
 
+  let remove_btn = document.createElement('button');
+  remove_btn.appendChild(document.createTextNode('remove'));
+  book_div.appendChild(remove_btn);
+
+  remove_btn.addEventListener('click', removeBookHandler);
+
   return book_div;
 }
 
@@ -39,7 +45,7 @@ function render() {
 
   for (let i=0; i < library.length; i++) {
     let book_div = makeBookDiv(library[i]);  
-
+    book_div.setAttribute('data-library-index', i.toString());
     shelf.appendChild(book_div);
   }
 }
@@ -63,6 +69,18 @@ function addBookHandler(e) {
 }
 
 document.querySelector('form').addEventListener('submit', addBookHandler);
+
+function removeBookHandler(e) {
+  let index = e.target.parentNode.getAttribute('data-library-index');
+  index = parseInt(index);
+
+  let r = confirm("Remove " + library[index].title + " from library? Are you sure?")
+  
+  if (r) {
+    library.splice(index, 1);
+    render();
+  }
+}
 
 // initialize
 addBookToLibrary(new Book("King Barleycorn", "Jack London", 203, true));
