@@ -84,6 +84,8 @@ function addBookHandler(e) {
   
   library.push(new_book);
   render();
+  closeForm();
+  this.reset();
 }
 
 document.querySelector('form').addEventListener('submit', addBookHandler);
@@ -99,6 +101,23 @@ function removeBookHandler(e) {
     render();
   }
 }
+
+function openForm(event) {
+  document.querySelector("#book-form").classList.remove('closed');
+  document.body.classList.add('with-modal');
+}
+
+function closeForm(event) {
+  document.querySelector("#book-form").classList.add('closed');
+  document.body.classList.remove('with-modal');
+}
+
+document.querySelector("#open-btn").addEventListener('click', openForm);
+document.querySelector(".close-btn").addEventListener('click', closeForm);
+
+document.querySelector("#book-form").addEventListener('click', function(event) {
+  if (event.target === document.querySelector("#book-form")) closeForm();
+});
 
 // initialize
 addBookToLibrary(new Book("King Barleycorn", "Jack London", 203, true));
