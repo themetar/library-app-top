@@ -8,7 +8,7 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.set_read = function (value=true) {
-  this.read = read;
+  this.read = value;
 }
 
 function addBookToLibrary(book) {
@@ -33,6 +33,7 @@ function makeBookDiv(book, i) {
   read_box.checked = book.read;
   read_box.id = `read-${i}`;
   book_div.appendChild(read_box);
+  read_box.addEventListener('change', readHandler);
 
   let label = document.createElement('label');
   label.appendChild(document.createTextNode('read'));
@@ -118,6 +119,13 @@ document.querySelector(".close-btn").addEventListener('click', closeForm);
 document.querySelector("#book-form").addEventListener('click', function(event) {
   if (event.target === document.querySelector("#book-form")) closeForm();
 });
+
+function readHandler(event) {
+  let book_div = event.target.parentNode;
+  let index = parseInt(book_div.getAttribute('data-library-index'));
+
+  library[index].set_read(event.target.checked);
+}
 
 // initialize
 addBookToLibrary(new Book("King Barleycorn", "Jack London", 203, true));
