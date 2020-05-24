@@ -1,10 +1,10 @@
 let library = [];
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+function Book(props) {
+  this.title = props.title;
+  this.author = props.author;
+  this.pages = props.pages;
+  this.read = props.read;
 }
 
 Book.prototype.set_read = function (value=true) {
@@ -81,7 +81,7 @@ function addBookHandler(e) {
     values[input.name] = input[prop[input.type]];
   }
   
-  let new_book = new Book(values.title, values.author, values.pages, values.read)
+  let new_book = new Book(values)
   
   library.push(new_book);
   render();
@@ -128,12 +128,8 @@ function readHandler(event) {
 }
 
 // initialize
-addBookToLibrary(new Book("King Barleycorn", "Jack London", 203, true));
-addBookToLibrary(new Book("The Cosmic Puppets", "Philip K. Dick", 130, true));
-addBookToLibrary(new Book("Nightfall", "Isaac Asimov & Robert Silverberg", 376, false));
+addBookToLibrary(new Book({title: "King Barleycorn",    author: "Jack London",                      pages: 203, read: true}));
+addBookToLibrary(new Book({title: "The Cosmic Puppets", author: "Philip K. Dick",                   pages: 130, read: true}));
+addBookToLibrary(new Book({title: "Nightfall",          author: "Isaac Asimov & Robert Silverberg", pages: 376, read: false}));
 
-
-/* crude testing */
-
-console.log(library);
 render();
