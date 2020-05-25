@@ -1,4 +1,31 @@
+function storeLibrary() {
+  try {
+    localStorage.setItem('library', JSON.stringify(library));
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
 let library = [];
+
+function addBookToLibrary(book) {
+  library.push(book);
+  storeLibrary();
+}
+
+let stored_library = localStorage.getItem('library');
+
+if (stored_library) {
+  library = JSON.parse(stored_library).map(function (b) { return new Book(b); });
+} else {
+  // initialize
+  addBookToLibrary(new Book({title: "King Barleycorn",    author: "Jack London",                      pages: 203, read: true}));
+  addBookToLibrary(new Book({title: "The Cosmic Puppets", author: "Philip K. Dick",                   pages: 130, read: true}));
+  addBookToLibrary(new Book({title: "Nightfall",          author: "Isaac Asimov & Robert Silverberg", pages: 376, read: false}));
+
+  // store
+  storeLibrary();
+}
 
 function Book(props) {
   this.title = props.title;
@@ -9,10 +36,6 @@ function Book(props) {
 
 Book.prototype.set_read = function (value=true) {
   this.read = value;
-}
-
-function addBookToLibrary(book) {
-  library.push(book);
 }
 
 function makeBookDiv(book, i) {
@@ -83,7 +106,7 @@ function addBookHandler(e) {
   
   let new_book = new Book(values)
   
-  library.push(new_book);
+  addBookToLibrary(new_book);
   render();
   closeForm();
   this.reset();
@@ -99,6 +122,7 @@ function removeBookHandler(e) {
   
   if (r) {
     library.splice(index, 1);
+    storeLibrary();
     render();
   }
 }
@@ -125,11 +149,8 @@ function readHandler(event) {
   let index = parseInt(book_div.getAttribute('data-library-index'));
 
   library[index].set_read(event.target.checked);
-}
 
-// initialize
-addBookToLibrary(new Book({title: "King Barleycorn",    author: "Jack London",                      pages: 203, read: true}));
-addBookToLibrary(new Book({title: "The Cosmic Puppets", author: "Philip K. Dick",                   pages: 130, read: true}));
-addBookToLibrary(new Book({title: "Nightfall",          author: "Isaac Asimov & Robert Silverberg", pages: 376, read: false}));
+  storeLibrary();
+}
 
 render();
