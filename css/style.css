@@ -42,9 +42,11 @@ header button {
 /* Bookshelf */
 
 #bookshelf {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  justify-items: center;
+  gap: 2rem;
+  padding: 1em;
 }
 
 /*
@@ -52,11 +54,10 @@ header button {
   */
 
 .book {
-  padding: 10px;
+  width: 12em;
 }
 
 .cover {
-  width: 12em;
   height: 16em;
   padding: 10px;
   background: white;
