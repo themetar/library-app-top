@@ -20,7 +20,13 @@ html { font-size: 16px; }
 
 /* Body */
 
-body { background: #fcf7f8; }
+body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 3rem; /* for footer */
+
+  background: #fcf7f8;
+}
 
 /* Page container */
 
@@ -240,3 +246,15 @@ form .close-btn {
 }
 
 body.with-modal { overflow-y: hidden; }
+
+/* Footer */
+
+footer {
+  font-size: .75rem;
+  position: absolute;
+  left: 1em;
+  bottom: .5em;
+  color: #888;
+}
+
+a { color: #a31621; }
