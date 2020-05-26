@@ -6,6 +6,18 @@
 
 body { margin: 0; }
 
+button,
+input,
+label { font-size: 1rem; }
+
+html { font-size: 16px; }
+
+/* Responsive font */
+
+@media screen and (min-width: 801px) and (max-width: 1024px) {
+  html { font-size: 12px; }
+}
+
 /* Body */
 
 body { background: #fcf7f8; }
@@ -13,15 +25,22 @@ body { background: #fcf7f8; }
 /* Page container */
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+@media screen and (min-width: 1921px) {
+  .container { max-width: 1600px;}
 }
 
 /* Header */
 
+h1 { background: #fcf7f8; }
+
 h1 {
-  margin: 0 0 .8em 0;
+  margin: 0;
   padding-top: .5em;
+  padding-bottom: .8em;
   font-size: 3rem;
   text-align: center;
   color: #a31621;
@@ -39,6 +58,18 @@ header button {
   color: #fcf7f8;
 }
 
+@media screen and (max-width: 799px) {
+  header {
+    position: fixed;
+    width: 100%;
+  }
+
+  h1 {
+    padding-top: .2em;
+    padding-bottom: .4em;
+  }
+}
+
 /* Bookshelf */
 
 #bookshelf {
@@ -47,6 +78,12 @@ header button {
   justify-items: center;
   gap: 2rem;
   padding: 1em;
+}
+
+@media screen and (max-width: 799px) {
+  #bookshelf {
+    padding-top: 8em;
+  }
 }
 
 /*
@@ -124,6 +161,7 @@ button {
   border-radius: 4px;
   color: #4e8098;
   padding: .2em 1em;
+  font-size: 1rem;
 }
 
 button:hover {
