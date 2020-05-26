@@ -199,15 +199,10 @@ button:active {
 }
 
 #book-form form {
-  width: 50%;
   max-width: 600px;
 
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-
   padding: 20px;
-  padding-top: 40px;
+  padding-top: 2.3rem;
 
   position: relative;
 
@@ -216,31 +211,32 @@ button:active {
   box-shadow: 6px 6px 10px 2px #444;
 }
 
-form input { min-width: 10px; }
+form input[type="text"],
+form button { width: 100%; }
 
-form label { flex: 2 0 40%; }
+form input[type="number"] { max-width: 6em; }
 
-form input[type="text"] { flex: 3 1 60%; }
+form input {
+  margin-top: .6em;
+  margin-bottom: 1em;
 
-form label:nth-of-type(3),
-form input[type="number"],
-form input[type="checkbox"],
-form input[type="checkbox"] + label {
-  flex: 1 1 20%;
-  max-width: 20%;
+  padding: .1em .15em;
 }
-
-form button { flex: 1 0 100%; }
-
-form input,
-form label { margin-bottom: 10px; }
 
 form .close-btn {
   position: absolute;
   right: 20px;
   top: 10px;
+  width: auto;
 }
 
 #book-form.closed { display: none; }
+
+@media screen and (max-width: 599px) {
+  #book-form form {
+    width: 100%;
+    max-width: none;
+  }
+}
 
 body.with-modal { overflow-y: hidden; }
