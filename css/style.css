@@ -75,6 +75,44 @@ header button {
   margin-bottom: 2em;
 }
 
+/* Read checkbox */
+
+.book input[type="checkbox"] { display: none; }
+
+.book input + label {
+  margin-left: .5em;
+  margin-right: .5em;
+  vertical-align: top;
+  color: #ced3dc;
+}
+
+.book input:not(:checked) + label::before { /* gray bookmark */
+  content: '';
+  display: inline-block;
+  margin-right: .5em;
+  border: .5em solid #ced3dc;
+  border-bottom-color: transparent;
+}
+
+.book input:checked + label::after {  /*  red bookmark */
+  content: '';
+  display: inline-block;
+  margin-left: .5em;
+  border: .5em solid #a31621;
+  border-bottom-color: transparent;
+}
+.book input:checked + label { color: black; }
+
+.book input:hover + label { color: #a31621; }
+
+/* Remove button */
+
+.book button {
+  float: right;
+  margin-right: .5em;
+  margin-top: .5em;
+}
+
 /*
   Buttons
   */
