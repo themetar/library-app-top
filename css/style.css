@@ -6,18 +6,102 @@
 
 body { margin: 0; }
 
+/* Body */
+
+body { background: #fcf7f8; }
+
+/* Page container */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+h1 {
+  margin: 0 0 .8em 0;
+  padding-top: .5em;
+  font-size: 3rem;
+  text-align: center;
+  color: #a31621;
+  font-family: 'Dancing Script', cursive;
+}
+
+header > div {  /* button container div */
+  padding-left: 10%;
+  border-top: 2px solid #4e8098;
+}
+
+header button {
+  font-size: 1.2rem;
+  background: linear-gradient(#4e8098, #90c2e7);
+  color: #fcf7f8;
+}
+
+/* Bookshelf */
+
+#bookshelf {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
 /*
   Book divs
   */
 
-.cover {
-  width: 200px;
+.book {
   padding: 10px;
+}
+
+.cover {
+  width: 12em;
+  height: 16em;
+  padding: 10px;
+  background: white;
   border: 1px solid black;
 }
 
 .title {
+  font-size: 1.5rem;
   text-align: center;
+}
+
+.author {
+  font-size: .8rem;
+  text-transform: uppercase;
+
+  margin-bottom: 2em;
+}
+
+/*
+  Buttons
+  */
+
+button {
+  background: #fcf7f8;
+  border: 2px solid #4e8098;
+  border-radius: 4px;
+  color: #4e8098;
+  padding: .2em 1em;
+}
+
+button:hover {
+  color: #fcf7f8;
+  background: #90c2e7;
+}
+
+button:active {
+  border-color: #90c2e7;
+  background: #fcf7f8;
+  color: #90c2e7;
+}
+
+.topside-flat {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 /*
@@ -51,7 +135,7 @@ body { margin: 0; }
   position: relative;
 
   border-radius: 2px;
-  background-color: darkseagreen;
+  background-color: #fcf7f8;
   box-shadow: 6px 6px 10px 2px #444;
 }
 
