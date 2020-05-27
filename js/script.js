@@ -1,32 +1,6 @@
-function storeLibrary() {
-  try {
-    localStorage.setItem('library', JSON.stringify(library));
-  } catch (e) {
-    alert(e.message);
-  }
-}
-
-let library = [];
-
-function addBookToLibrary(book) {
-  library.push(book);
-  storeLibrary();
-}
-
-let stored_library = localStorage.getItem('library');
-
-if (stored_library) {
-  library = JSON.parse(stored_library).map(function (b) { return new Book(b); });
-} else {
-  // initialize
-  addBookToLibrary(new Book({title: "King Barleycorn",    author: "Jack London",                      pages: 203, read: true}));
-  addBookToLibrary(new Book({title: "The Cosmic Puppets", author: "Philip K. Dick",                   pages: 130, read: true}));
-  addBookToLibrary(new Book({title: "Nightfall",          author: "Isaac Asimov & Robert Silverberg", pages: 376, read: false}));
-
-  // store
-  storeLibrary();
-}
-
+/*
+  Book object constructor
+*/
 function Book(props) {
   this.title = props.title;
   this.author = props.author;
@@ -37,6 +11,29 @@ function Book(props) {
 Book.prototype.set_read = function (value=true) {
   this.read = value;
 }
+
+/*
+  Library storage
+*/
+
+let library = [];
+
+function storeLibrary() {
+  try {
+    localStorage.setItem('library', JSON.stringify(library));
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+function addBookToLibrary(book) {
+  library.push(book);
+  storeLibrary();
+}
+
+/*
+  Graphic display - Book divs
+*/
 
 function makeBookDiv(book, i) {
   let book_div = document.createElement('div');
@@ -127,6 +124,21 @@ function removeBookHandler(e) {
   }
 }
 
+function readHandler(event) {
+  let book_div = event.target.parentNode;
+  let index = parseInt(book_div.getAttribute('data-library-index'));
+
+  library[index].set_read(event.target.checked);
+
+  storeLibrary();
+}
+
+/*
+  Add book html form event listeners
+*/
+
+/* Show and hide form */
+
 function openForm(event) {
   document.querySelector("#book-form").classList.remove('closed');
   document.body.classList.add('with-modal');
@@ -140,16 +152,47 @@ function closeForm(event) {
 document.querySelector("#open-btn").addEventListener('click', openForm);
 document.querySelector(".close-btn").addEventListener('click', closeForm);
 
-document.querySelector("#book-form").addEventListener('click', function(event) {
+document.querySelector("#book-form").addEventListener('click', function(event) {  /* when clicking on the form's container, but outside the form itself */
   if (event.target === document.querySelector("#book-form")) closeForm();
 });
 
-function readHandler(event) {
-  let book_div = event.target.parentNode;
-  let index = parseInt(book_div.getAttribute('data-library-index'));
+/* Form's submit event */
 
-  library[index].set_read(event.target.checked);
+function addBookHandler(e) {
+  e.preventDefault();
 
+  let inputs = document.querySelectorAll('input');
+  let values = {}
+  const prop = {text: "value", number: "value", checkbox: "checked"};
+  for(let input of inputs) {
+    values[input.name] = input[prop[input.type]];
+  }
+  
+  let new_book = new Book(values)
+  
+  addBookToLibrary(new_book);
+  render();
+  closeForm();
+  this.reset();
+}
+
+document.querySelector('form').addEventListener('submit', addBookHandler);
+
+/*
+  Initialize
+*/
+
+let stored_library = localStorage.getItem('library');
+
+if (stored_library) {
+  library = JSON.parse(stored_library).map(function (b) { return new Book(b); });
+} else {
+  // initialize
+  addBookToLibrary(new Book({title: "King Barleycorn",    author: "Jack London",                      pages: 203, read: true}));
+  addBookToLibrary(new Book({title: "The Cosmic Puppets", author: "Philip K. Dick",                   pages: 130, read: true}));
+  addBookToLibrary(new Book({title: "Nightfall",          author: "Isaac Asimov & Robert Silverberg", pages: 376, read: false}));
+
+  // store
   storeLibrary();
 }
 
