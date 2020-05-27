@@ -13,4 +13,4 @@ Frontend-only app to store inventory of books.
 
 ## Origin
 
-Part of [The Odin Project](https://www.theodinproject.com)'s Javascript [course](https://www.theodinproject.com/courses/javascript).
+Assignment as part of [The Odin Project](https://www.theodinproject.com)'s Javascript [course](https://www.theodinproject.com/courses/javascript).
