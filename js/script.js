@@ -1,15 +1,17 @@
 /*
   Book object constructor
 */
-function Book(props) {
-  this.title = props.title;
-  this.author = props.author;
-  this.pages = props.pages;
-  this.read = props.read;
-}
+class Book {
+  constructor (props) {
+    this.title = props.title;
+    this.author = props.author;
+    this.pages = props.pages;
+    this.read = props.read;
+  }
 
-Book.prototype.set_read = function (value=true) {
-  this.read = value;
+  set_read (value=true) {
+    this.read = value;
+  }
 }
 
 /*
