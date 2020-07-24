@@ -93,26 +93,6 @@ function render() {
 
 /* Event listeners */
 
-function addBookHandler(e) {
-  e.preventDefault();
-
-  let inputs = document.querySelectorAll('input');
-  let values = {}
-  const prop = {text: "value", number: "value", checkbox: "checked"};
-  for(let input of inputs) {
-    values[input.name] = input[prop[input.type]];
-  }
-  
-  let new_book = new Book(values)
-  
-  addBookToLibrary(new_book);
-  render();
-  closeForm();
-  this.reset();
-}
-
-document.querySelector('form').addEventListener('submit', addBookHandler);
-
 function removeBookHandler(e) {
   let index = e.target.parentNode.getAttribute('data-library-index');
   index = parseInt(index);
