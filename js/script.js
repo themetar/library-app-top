@@ -138,27 +138,69 @@ document.querySelector("#book-form").addEventListener('click', function(event) {
   if (event.target === document.querySelector("#book-form")) closeForm();
 });
 
-/* Form's submit event */
+/* Form's events */
 
-function addBookHandler(e) {
+/* input validation */
+
+function displayErrors (input) {
+  const errorDisplay = input.nextElementSibling;
+
+  if (!errorDisplay.classList.contains("error")) return;  // not an .error div
+
+  if (input.validity.valid) {
+    errorDisplay.classList.remove("show");
+    errorDisplay.innerHTML = "";
+  } else {
+    errorDisplay.classList.add("show");
+    errorDisplay.innerHTML = input.validationMessage;
+  }
+}
+
+function inputHandler(event) {
+  const input = event.target;
+
+  displayErrors(input);
+}
+
+document.querySelectorAll('form input').forEach(input => {
+  input.addEventListener("input", inputHandler);
+  input.addEventListener("blur", inputHandler);
+});
+
+/* submit event */
+
+function submitBookHandler(e) {
   e.preventDefault();
 
   let inputs = document.querySelectorAll('input');
-  let values = {}
-  const prop = {text: "value", number: "value", checkbox: "checked"};
-  for(let input of inputs) {
-    values[input.name] = input[prop[input.type]];
+
+  let valid = true;
+  inputs.forEach(inp => valid = valid & inp.validity.valid);
+
+  if (valid) {
+    let values = {}
+    const prop = {text: "value", number: "value", checkbox: "checked"};
+    for(let input of inputs) {
+      values[input.name] = input[prop[input.type]];
+    }
+    
+    let new_book = new Book(values)
+    
+    addBookToLibrary(new_book);
+    render();
+    closeForm();
+    this.reset();
+  } else {
+    for(let input of inputs) {
+      if (!input.validity.valid) {
+        displayErrors(input);
+        break;
+      }
+    }
   }
-  
-  let new_book = new Book(values)
-  
-  addBookToLibrary(new_book);
-  render();
-  closeForm();
-  this.reset();
 }
 
-document.querySelector('form').addEventListener('submit', addBookHandler);
+document.querySelector('form').addEventListener('submit', submitBookHandler);
 
 /*
   Initialize

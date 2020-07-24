@@ -241,6 +241,20 @@ form .close-btn {
   width: auto;
 }
 
+form .error {
+  position: absolute;
+  margin-top: -1.2em;
+  margin-left: 1em;
+  padding: .4em .8em;
+  border-radius: 2px;
+  background-color: rgba(127, 0, 0, .6);
+  color: white;
+  box-shadow: .3em .3em .5em rgba(0, 0, 0, .4);
+  display: none;
+}
+
+form .error.show { display: block; }
+
 #book-form.closed { display: none; }
 
 @media screen and (max-width: 599px) {
